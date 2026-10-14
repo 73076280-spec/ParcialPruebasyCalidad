@@ -1,0 +1,13 @@
+/config/config.local.php
+/config/config.test.php
+/storage/*
+!/storage/.gitkeep
+/public/uploads/*
+!/public/uploads/.htaccess
+!/public/uploads/.gitkeep
+/delivery/
+/vendor/
+*.log
+.env
+/vendor/
+/node_modules/

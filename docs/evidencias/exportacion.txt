@@ -1,0 +1,2 @@
+informe: 143127 bytes, 7 páginas PDF; HTML sin desbordamiento; 0 casos; 14064 caracteres de texto. Vista inicial capturada para revisión.
+plan-de-pruebas: 271100 bytes, 13 páginas PDF; HTML sin desbordamiento; 24 casos; 26007 caracteres de texto. Vista inicial capturada para revisión.

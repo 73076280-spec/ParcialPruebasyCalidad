@@ -1,0 +1,12 @@
+Navegador: Edg/155.0.4283.45; escritorio 1440x1000; celular emulado 390x844.
+PASS B01 escritorio sin desbordamiento
+PASS B02 seis noticias y filtros
+PASS B03 salto accesible por teclado
+PASS B04 salto al contenido
+PASS B05 celular sin desbordamiento
+PASS B06 una columna en celular
+PASS B07 etiquetas de login
+PASS B08 login navegador
+PASS B09 formulario móvil sin desbordamiento
+PASS B10 errores con aria-describedby
+PASS B11 foco en primer error

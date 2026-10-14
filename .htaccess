@@ -1,0 +1,8 @@
+# Defensa adicional para la instalación local bajo htdocs.
+# En alojamiento use siempre public como DocumentRoot.
+Options -Indexes
+RewriteEngine On
+RewriteRule ^(app|config|database|scripts|tests|storage|docs|delivery)(/|$) - [F,L,NC]
+<FilesMatch "^(README\.md|\.gitignore)$">
+Require all denied
+</FilesMatch>
