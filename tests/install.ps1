@@ -91,7 +91,8 @@ try {
     if ($panel.Content -notmatch 'Resumen del blog') { throw 'Login Apache no completado.' }
     $lines.Add('PASS A07 Login del administrador creado y panel funcionando en Apache.')
     & C:\xampp\apache\bin\httpd.exe -v | ForEach-Object { $lines.Add($_) }
-    $lines | Tee-Object -FilePath (Join-Path $taskRoot 'docs/evidencias/install.txt')
+    New-Item -ItemType Directory -Force (Join-Path $taskRoot 'docs/evidencias/revision-2') | Out-Null
+    $lines | Tee-Object -FilePath (Join-Path $taskRoot 'docs/evidencias/revision-2/install.txt')
 } finally {
     & taskkill.exe /PID $ownedApache.Id /T /F | Out-Null
 }

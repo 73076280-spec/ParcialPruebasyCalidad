@@ -31,5 +31,9 @@ try {
     $blog->query('DELETE FROM news WHERE id=?',[$id]); assertTest('I13 eliminar noticia',$blog->news($id)===false);
     $blog->query('DELETE FROM news WHERE category_id=?',[$cat]); $blog->query('DELETE FROM categories WHERE id=?',[$cat]);
     assertTest('I14 eliminar categoría vacía',!$blog->query('SELECT id FROM categories WHERE id=?',[$cat])->fetch());
+    $blog->query('INSERT INTO categories(name) VALUES(?)',['Unicode '.bin2hex(random_bytes(5))]); $unicodeCategory=(int)$pdo->lastInsertId();
+    $d['category_id']=$unicodeCategory; $d['content']=str_repeat('📰',20000); $d['status']='draft';
+    $blog->saveNews($d,null);$unicodeId=(int)$pdo->lastInsertId();
+    assertTest('I15 máximo Unicode guardado íntegro', $blog->news($unicodeId)['content']===$d['content'] && mb_strlen($blog->news($unicodeId)['content'])===20000);
     echo "$passed aprobaciones, 0 fallos; ROLLBACK\n";
 } finally { $pdo->rollBack(); }

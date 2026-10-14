@@ -2,7 +2,7 @@
 
 **Universidad Continental · Pruebas y Calidad de Software · Producto Académico N.º 2**
 
-**Autor:** Ramos Ore Dennis Jhordan. Versión 1.0, registro de ejecución: 13 de octubre de 2026 (America/Lima).
+**Autor:** Ramos Ore Dennis Jhordan. Versión 1.1 · revisión del proyecto existente, registro de ejecución: 13 de octubre de 2026 (America/Lima).
 
 ## 1. Identificación y descripción
 
@@ -39,13 +39,13 @@ Verificar publicación y consulta correctas; impedir acceso o modificaciones no 
 | RF07 | Resumen muestra noticias totales, publicadas y categorías. |
 | RF08 | Crear, consultar, editar y eliminar noticias; publicación y fechas coherentes; confirmación. |
 | RF09 | Crear, editar, listar y eliminar categorías vacías; duplicados y eliminación con noticias bloqueados. |
-| RF10 | Validaciones en servidor, errores por campo y valores conservados. |
+| RF10 | Validaciones al crear y editar, espacios Unicode rechazados, reglas visibles, errores por campo y valores conservados. |
 | RNF01 | PDO preparado; las entradas no modifican la estructura SQL. |
 | RNF02 | Modificaciones solo POST y con token CSRF válido. |
 | RNF03 | HTML escapado y contenido de noticia tratado como texto. |
 | RNF04 | Imagen real JPEG/PNG/WebP, hasta 2 MiB, nombre aleatorio, alt y ejecución bloqueada. |
-| RNF05 | HTML semántico, etiquetas, salto, foco y errores accesibles; evaluación parcial sin certificación. |
-| RNF06 | Diseño español naranja/beige/blanco/café adaptable a escritorio y celular. |
+| RNF05 | Etiquetas, teclado, salto, foco, errores accesibles, ampliación 200% y controles táctiles; evaluación parcial sin certificación. |
+| RNF06 | Diseño sobrio en español, naranja/beige/blanco/café, adaptable a 360/390/768/1440 y estados de error. |
 | RNF07 | LIMIT/OFFSET en SQL, imágenes diferidas en listados y escenario local de rendimiento. |
 | RNF08 | Credenciales locales excluidas; instalación reproducible; pruebas con base separada. |
 
@@ -78,7 +78,7 @@ Unitarias sin dependencias: funciones de validación, escape, CSRF e imágenes, 
 
 ## 9. Entorno, herramientas y datos
 
-Windows, PHP 8.2.12, MariaDB 10.4.32, PDO MySQL, mbstring, fileinfo, curl; Node v26.7.0 y Edge 155.0.4283.45 para la revisión realizada. Servidor PHP en 127.0.0.1:8080; instancia MariaDB temporal en 3307 con datos en storage/mysql, sin modificar XAMPP. Integración: actualidad_huancayo_test; HTTP: actualidad_http_test. Datos iniciales: tres categorías, ocho publicaciones y un borrador ficticios. Cuenta de pruebas admin@actualidad.test; clave pública de demostración DemoHuancayo2026!, solo para entorno local. Producción/desarrollo se instalan por separado según README.
+Windows, PHP 8.2.12, MariaDB 10.4.32, PDO MySQL, mbstring, fileinfo, curl; Node v26.7.0 y Edge 155.0.4283.45 para la revisión realizada. Servidor PHP en 127.0.0.1:8080; instancia MariaDB temporal en 3307 con datos en storage/mysql, sin modificar XAMPP. Integración: actualidad_huancayo_test; HTTP: actualidad_http_test. Datos iniciales: tres categorías, ocho publicaciones y un borrador ficticios. Copia QA nueva en storage/qa-20261013200403 con base actualidad_revision_20261013200403_test, sin alterar configuraciones ni datos de desarrollo. Cuenta de pruebas admin@actualidad.test; clave pública de demostración DemoHuancayo2026!, solo para entorno local. Producción/desarrollo se instalan por separado según README.
 
 ## 10. Responsabilidades
 
@@ -90,7 +90,7 @@ Ramos Ore Dennis Jhordan es el único responsable académico de revisar requisit
 |---|---|
 | Requisitos y riesgos | 2 |
 | Entorno y datos separados | 2 |
-| Diseño de 24 casos y matriz | 3 |
+| Diseño de 25 casos y matriz | 3 |
 | Automatización de reglas e integración | 4 |
 | Flujos de sistema y navegador | 3 |
 | Revisión manual, accesibilidad e instalación | 3 |
@@ -116,15 +116,15 @@ Registrar DEF-001 y sucesivos con requisito/caso, pasos, datos, esperado/real, e
 
 Avance = casos ejecutados / casos planificados × 100. Aprobación = casos aprobados / casos ejecutados × 100. Cobertura de requisitos diseñada = requisitos con al menos un caso / requisitos totales × 100. Cobertura ejecutada = requisitos con al menos un caso ejecutado / requisitos totales × 100. Un requisito parcialmente ejercitado no se considera certificado por esa cifra. Cobertura de código mide líneas/ramas ejercitadas mediante instrumentación; no se ha medido.
 
-En esta versión: 24 casos planificados, 23 aprobados y uno No ejecutado. Avance 23/24 = 95,83%; aprobación 23/23 = 100%; cobertura diseñada 18/18 = 100%; cobertura ejecutada 18/18 = 100%. CP21 pendiente. Las 105 comprobaciones automatizadas (29 unitarias + 14 integración + 44 HTTP + 11 navegador + 7 instalación Apache) son aserciones, no 105 casos del plan. Rendimiento se registra aparte.
+En esta revisión: 25 casos planificados, 24 aprobados y uno No ejecutado (CP21). Avance 24/25 = 96%; aprobación 24/24 = 100%; cobertura diseñada 18/18 = 100%; cobertura ejecutada 18/18 = 100%. Las comprobaciones automatizadas actuales son 56 unitarias, 15 de integración, 52 HTTP, 226 de navegador y siete de instalación Apache: 356 aserciones. Son particiones y variantes del plan, no 356 casos. Rendimiento y sintaxis se registran aparte. La cobertura mediante algún caso no certifica la accesibilidad completa.
 
 ## 16. Evidencias y entregables
 
-Código/SQL/configuración de ejemplo, README, plan y 24 casos, matriz, informe, guion, participantes, registros textuales, capturas reales, versiones imprimibles y ZIP. Los registros están en docs/evidencias; comandos y limitaciones en resultados-de-pruebas.md. Cada ejecución futura debe actualizar resultado real, estado y evidencia sin sobrescribir evidencia histórica sin identificación.
+Código/SQL/configuración de ejemplo, README, plan y 25 casos, matriz, informe, guion, participantes, registros textuales, capturas reales, versiones imprimibles y ZIP. Los registros están en docs/evidencias; comandos y limitaciones en resultados-de-pruebas.md. Cada ejecución futura debe actualizar resultado real, estado y evidencia sin sobrescribir evidencia histórica sin identificación.
 
 ## 17. Casos de prueba
 
-Estados finales corresponden a los escenarios delimitados aquí. «Aprobado» no implica cobertura de variantes no enumeradas.
+Estados finales corresponden a los escenarios delimitados aquí. «Aprobado» no implica cobertura de variantes no enumeradas. Evidencias de esta revisión en docs/evidencias/revision-2 (unit.txt, integration.txt, http.txt, navegador.txt, pantallas.json, contraste.json y capturas). Los registros de la primera versión se conservan en evidencias, fuera de revision-2. La tabla ejemplos-validacion.md reutiliza las pruebas unitarias y contiene datos y resultados reales.
 
 ### CP01 — Inicio y orden
 
@@ -133,7 +133,7 @@ Estados finales corresponden a los escenarios delimitados aquí. «Aprobado» no
 - Pasos: solicitar inicio; contar tarjetas; comparar orden por published_at e ID; consultar página 2.
 - Esperado: seis tarjetas en primera página y dos en segunda, ninguna de borrador, orden descendente estable.
 - Real: H01/H02 e I03/I10 verificaron tamaño, exclusión y desempate descendente; captura muestra fechas descendentes.
-- Estado: Aprobado. Evidencia: http.txt, integration.txt e inicio-escritorio.png.
+- Estado: Aprobado. Evidencia: http.txt, integration.txt e inicio-1440.png.
 
 ### CP02 — Detalle público
 
@@ -177,7 +177,7 @@ Estados finales corresponden a los escenarios delimitados aquí. «Aprobado» no
 - Precondiciones: administrador de prueba con hash; navegador/curl con cookies. Datos: correo demo, clave incorrecta y clave demo.
 - Pasos: enviar clave incorrecta; comprobar mensaje; enviar correcta con token; comparar cookie antes/después.
 - Esperado: mensaje genérico al fallar; redirect al panel al acertar; ID distinto; password_verify valida el hash.
-- Real: H08/H09/H10, U19 y B08 aprobaron.
+- Real: H08/H09/H10 y U19 aprobaron; «Login navegador» aprobó en el arnés actualizado.
 - Estado: Aprobado. Evidencia: http.txt, unit.txt y navegador.txt.
 
 ### CP07 — Autorización administrativa
@@ -204,8 +204,8 @@ Estados finales corresponden a los escenarios delimitados aquí. «Aprobado» no
 - Precondiciones: sesión y SQL demo. Datos: nueve noticias, ocho publicadas, tres categorías.
 - Pasos: abrir panel; comparar las tres tarjetas con los datos iniciales.
 - Esperado: cantidades 9, 8 y 3.
-- Real: H11/B08 abrieron panel; captura panel-escritorio muestra 9/8/3, revisada visualmente.
-- Estado: Aprobado. Evidencia: panel-escritorio.png, http.txt y navegador.txt.
+- Real: H11 y «Login navegador» abrieron panel; captura panel-768.png muestra 9/8/3, revisada visualmente.
+- Estado: Aprobado. Evidencia: panel-768.png, http.txt y navegador.txt.
 
 ### CP10 — Crear, editar y publicar
 
@@ -222,7 +222,7 @@ Estados finales corresponden a los escenarios delimitados aquí. «Aprobado» no
 - Precondiciones: noticia temporal, sesión/token. Datos: ID temporal.
 - Pasos: GET news-delete; comprobar que existe; enviar POST con token; consultar BD.
 - Esperado: GET presenta confirmación sin borrar; POST elimina solo el ID elegido.
-- Real: H21/H23 e I13 aprobaron. Cancelar está implementado como enlace sin modificación; no se incluye como flujo ejecutado separado.
+- Real: H21/H23/H39 e I13 aprobaron; cancelar devuelve al listado y conserva la noticia. El navegador activó Cancelar con Enter en las cuatro anchuras sin enviar eliminación.
 - Estado: Aprobado. Evidencia: http.txt e integration.txt.
 
 ### CP12 — Categorías y duplicados
@@ -231,7 +231,7 @@ Estados finales corresponden a los escenarios delimitados aquí. «Aprobado» no
 - Precondiciones: sesión/token. Datos: nombre temporal único y repetido.
 - Pasos: crear; repetir nombre; editar; eliminar vacía.
 - Esperado: altas/edición válidas; error de duplicado; eliminación sin pérdida de noticias.
-- Real: H25/H26/H27/H28 e I14 aprobaron.
+- Real: H25/H26/H27/H28/H40/H41/H42 e I14 aprobaron; cancelar conserva la categoría y el nombre inválido no modifica el registro.
 - Estado: Aprobado. Evidencia: http.txt e integration.txt.
 
 ### CP13 — Categoría con noticias
@@ -258,8 +258,8 @@ Estados finales corresponden a los escenarios delimitados aquí. «Aprobado» no
 - Precondiciones: sesión, formulario nuevo. Datos: título 4/5/160/161; resumen 9/10/300/301; contenido 19/20/20.000/20.001; categoría 0, estado invalid; formulario breve.
 - Pasos: ejecutar particiones unitarias; enviar formulario breve por HTTP/navegador; observar valores y errores.
 - Esperado: aceptar límites inclusivos, rechazar exteriores; conservar textos y relacionar errores con campos.
-- Real: U02–U05/H12/B10/B11 aprobaron; captura muestra errores y texto conservado.
-- Estado: Aprobado. Evidencia: unit.txt, http.txt, navegador.txt y errores-celular.png.
+- Real: Las filas «Límite», «Vacío», «Estado» y «Categoría» de unit.txt aprobaron. H12/H35–H38/H40/H42 verificaron validación al crear/editar incluso sin navegador. I15 conservó íntegros 20.000 caracteres de cuatro bytes. El navegador verificó resumen, enlaces de error, foco y textos conservados en cuatro anchos.
+- Estado: Aprobado. Evidencia: unit.txt, http.txt, navegador.txt y errores-news-360.png.
 
 ### CP16 — Inyección SQL
 
@@ -303,26 +303,26 @@ Estados finales corresponden a los escenarios delimitados aquí. «Aprobado» no
 - Precondiciones: función de validación disponible y sesión HTTP. Datos: PNG auténtico rellenado hasta 2.097.152 bytes; archivo de 2.097.153 bytes.
 - Pasos: validar límite exacto; enviar archivo excesivo con límites PHP mayores.
 - Esperado: límite exacto aceptado por validador; exceso rechazado por tamaño con mensaje de campo.
-- Real: U20 y H20b aprobaron; U15 rechazó exceso. No se verificó calidad visual de PNG rellenado.
+- Real: U20 y H20b aprobaron; U15 rechazó exceso y «Imagen máximo menos 1 byte» aprobó. También se rechazaron cero bytes. No se verificó calidad visual de PNG rellenado.
 - Estado: Aprobado. Evidencia: unit.txt y http.txt.
 
 ### CP21 — Accesibilidad manual completa
 
-- Requisitos: RNF05. Objetivo: recorrer todas las pantallas con teclado y lector de pantalla y revisar contraste. Prioridad: P2.
-- Precondiciones: navegador, lector de pantalla (por ejemplo NVDA), sesión de prueba. Datos: inicio, detalle, login, todos los formularios, errores y confirmaciones.
-- Pasos: navegar sin ratón; activar controles; escuchar etiquetas/errores; comprobar orden de foco; medir contraste de textos y controles.
-- Esperado: sin trampas de foco, nombres comprensibles y mensajes perceptibles; revisar contraste con criterios aplicables.
-- Real: solo salto al contenido, etiquetas de login y foco de errores comprobados en B03/B04/B07/B10/B11. No se ejecutó el recorrido completo ni lector de pantalla ni medición sistemática de contraste.
-- Estado: No ejecutado. Evidencia parcial: navegador.txt y capturas; evidencia completa pendiente. No se afirma conformidad WCAG.
+- Requisitos: RNF05. Objetivo: completar la revisión con lector de pantalla, zoom nativo y todos los estados de contraste. Prioridad: P2.
+- Precondiciones: navegador y lector de pantalla (por ejemplo NVDA), cuenta de prueba. Datos: todas las rutas y estados.
+- Pasos: recorrer por teclado, escuchar etiquetas/errores, ampliar con Ctrl+ hasta 200%, medir contraste de foco/hover/errores y contenido con imágenes.
+- Esperado: lectura comprensible, sin trampas de foco ni pérdida de funcionalidad; documentar barreras reales.
+- Real: se recorrieron con Tab/Shift+Tab las 12 pantallas a 390/1440, se activó salto/Cancelar/enlaces de error con Enter y se midieron ocho muestras de contraste. CP25 registra ampliación automatizada. No se ejecutó lector de pantalla, zoom nativo manual ni auditoría de todos los estados.
+- Estado: No ejecutado. Evidencia parcial: revision-2/navegador.txt, contraste.json y capturas. Evidencia manual completa pendiente; no se afirma conformidad WCAG.
 
-### CP22 — Diseño adaptable
+### CP22 — Diseño y funcionamiento en tamaños móviles
 
-- Requisitos: RNF06. Objetivo: revisar inicio y formulario en dos resoluciones concretas. Prioridad: P2.
-- Precondiciones: Edge automatizado y recursos locales. Datos: escritorio 1440×1000 y celular emulado 390×844.
-- Pasos: abrir inicio escritorio/celular; abrir login, panel, formulario y errores; revisar capturas y ancho del documento.
-- Esperado: sin desbordamiento, tarjetas en una columna móvil, textos/controles visibles, paleta coherente y español.
-- Real: B01/B05/B06/B09 aprobaron; capturas revisadas visualmente. No implica teléfonos reales, zoom 200% ni otros navegadores.
-- Estado: Aprobado. Evidencia: navegador.txt y las seis capturas PNG.
+- Requisitos: RNF06. Objetivo: revisar todas las pantallas y mensajes en 360, 390, 768 y 1440 píxeles. Prioridad: P2.
+- Precondiciones: Edge con copia QA y SQL demo. Datos: inicio, detalle, login, panel, listados, crear/editar noticia/categoría y confirmaciones.
+- Pasos: abrir 12 pantallas en cada ancho; enviar formularios inválidos de noticias/categorías; comprobar límites de cajas, superposiciones, controles, etiquetas y títulos; revisar capturas.
+- Esperado: sin desbordamiento horizontal ni controles superpuestos/cortados; campos y acciones utilizables y textos comprensibles.
+- Real: 48 pantallas normales y ocho de error verificadas con DOM y capturas. Los diseños, etiquetas y semántica aprobaron; la paleta sobria se revisó visualmente. No se utilizó teléfono físico.
+- Estado: Aprobado. Evidencia: revision-2/navegador.txt, pantallas.json y 12 PNG; el caso cubre tamaños de navegador emulados, no todos los dispositivos.
 
 ### CP23 — Paginación y rendimiento local
 
@@ -330,7 +330,7 @@ Estados finales corresponden a los escenarios delimitados aquí. «Aprobado» no
 - Precondiciones: base HTTP dedicada, servidor PHP local; no otras pruebas simultáneas. Datos: siete noticias para filtros y 1.000 adicionales para rendimiento, página 100.
 - Pasos: recorrer dos páginas con filtros; solicitar página excesiva; ejecutar un calentamiento y 30 HTTP secuenciales; calcular P95 por rango más próximo.
 - Esperado: 6/1 tarjetas, filtros conservados, página ajustada; consulta usa LIMIT/OFFSET; P95 local <500 ms como presupuesto educativo para interacción sencilla sin red externa.
-- Real: H32/H33/H34 e I09 aprobaron. Mediana 9,946 ms, P95 35,225 ms, máximo 41,897 ms. Objetivo alcanzado en este escenario.
+- Real: H32/H33/H34 e I09 aprobaron. Mediana 6,457 ms, P95 31,011 ms, máximo 31,175 ms. Objetivo alcanzado en este escenario.
 - Estado: Aprobado. Evidencia: http.txt, integration.txt y performance.txt. Sin conclusión sobre concurrencia o producción.
 
 ### CP24 — Instalación, aislamiento y Apache
@@ -340,5 +340,13 @@ Estados finales corresponden a los escenarios delimitados aquí. «Aprobado» no
 - Datos: BD actualidad_huancayo, BD *_test, archivo de prueba no ejecutable en uploads.
 - Pasos: inspeccionar ZIP; instalar según README; crear administrador; recorrer blog en Apache; verificar que HTTP no accede a configuración y no ejecuta archivo con extensión PHP; intentar iniciar integración con DSN no _test en copia dedicada y comprobar negativa sin modificar datos.
 - Esperado: instalación reproducible, solo public como raíz, configuraciones excluidas, acceso a scripts/credenciales imposible, pruebas rechazan desarrollo.
-- Real: A01–A07 aprobaron instalación en una copia extraída, importación SQL, creación CLI del administrador, rechazo de DSN de desarrollo, inicio/login en Apache, rutas privadas 403/404 y ejecución PHP en uploads denegada con 403. Apache 2.4.58 y base exclusiva actualidad_install4_test.
+- Real: A01–A07 aprobaron instalación en una copia extraída, importación SQL, creación CLI del administrador, rechazo de DSN de desarrollo, inicio/login en Apache, rutas privadas 403/404 y ejecución PHP en uploads denegada con 403. Apache 2.4.58 y base exclusiva actualidad_install5_test.
 - Estado: Aprobado. Evidencia: install.txt, manifest.txt y resultados-de-pruebas.md. Configuración Apache temporal dentro de storage, sin modificar XAMPP.
+### CP25 — Ampliación de contenido y controles táctiles
+
+- Requisitos: RNF05, RNF06. Objetivo: verificar adaptación con contenido al 200% y tamaño útil de controles. Prioridad: P2.
+- Precondiciones: Edge/CDP, copia QA y sesión. Datos: fuente raíz al 200% en formulario de noticia; viewport CSS 720 con salida escalada a 1440 para 11 pantallas; controles incluidos en las otras anchuras.
+- Pasos: duplicar fuente raíz y comparar tamaño calculado del campo título; comprobar ausencia de desbordamiento; repetir layouts a escala 2; revisar altura y superposición de controles; activar Cancelar y enlaces de error con Enter.
+- Esperado: fuente de controles duplicada, campos/acciones dentro del viewport y sin superposición; altura mínima 44px para controles examinados.
+- Real: el tamaño calculado se duplicó; 11 variantes de layout equivalente al zoom 200% aprobaron, junto con el formulario con texto duplicado. Las capturas muestran campos y acciones completos. Se verificaron controles principales, navegación, enlaces de tarjetas, paginación y errores.
+- Estado: Aprobado en el alcance automatizado. Evidencia: revision-2/navegador.txt, pantallas.json, texto-200-formulario.png y zoom-200-formulario.png. No se accionó Ctrl+ nativo ni se usó un teléfono; esa revisión humana permanece en CP21.

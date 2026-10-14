@@ -22,9 +22,16 @@ function markdown(text){
     }close();if(caseOpen)html+='</section>';return html;
 }
 const style=`@page{size:A4;margin:18mm 16mm}*{box-sizing:border-box}body{font:11pt/1.5 Arial,sans-serif;color:#36281f;margin:0;padding:0}h1{font:700 28pt/1.15 Georgia,serif;color:#58331f;margin:0 0 20px}h2{font-size:16pt;margin:24px 0 10px;border-bottom:1px solid #d7b99c;padding-bottom:6px;break-after:avoid}h3{font-size:13pt;margin:16px 0 8px;break-after:avoid}p{margin:8px 0 12px}li{margin:5px 0}ul{padding-left:22px}table{width:100%;border-collapse:collapse;font-size:9.5pt;margin:15px 0;table-layout:fixed}th,td{padding:8px;border:1px solid #cbbbad;text-align:left;vertical-align:top;overflow-wrap:anywhere}th{background:#f4e8db}thead{display:table-header-group}tr{break-inside:avoid}a{color:#734018;overflow-wrap:anywhere}code{font:9pt Consolas,monospace;overflow-wrap:anywhere}pre{background:#f5efe7;padding:12px;white-space:pre-wrap;overflow-wrap:anywhere;break-inside:avoid}.case{break-inside:avoid}.case li{margin:4px 0}.case ul{margin:8px 0 18px}@media screen{body{padding:36px;max-width:794px;background:white;margin:auto}html{background:#eee}}`;
-await mkdir(path.join(root,'docs/evidencias'),{recursive:true});
+const evidenceDir=path.join(root,'docs/evidencias/revision-2');
+await mkdir(evidenceDir,{recursive:true});
+let plannedCaseCount=0;
 for(const name of ['informe','plan-de-pruebas']){
     const source=await readFile(path.join(root,'docs',name+'.md'),'utf8');
+    if(name==='plan-de-pruebas'){
+        plannedCaseCount=(source.match(/^### CP[0-9]+/gm)||[]).length;
+        const declared=source.match(/([0-9]+) casos planificados/);
+        if(declared && plannedCaseCount!==Number(declared[1]))throw Error('Casos declarados distintos de los encabezados del plan');
+    }
     let body=markdown(source);
     if(name==='informe')body=body.replace('<h2>Portada</h2>','<section class="cover"><h2>Portada</h2>').replace('<h2>Introducción</h2>','</section><h2>Introducción</h2>');
     await writeFile(path.join(root,'docs',name+'.html'),`<!doctype html><html lang="es"><head><meta charset="utf-8"><title>${name} · Actualidad Huancayo</title><style>${style}.cover{min-height:700px;break-after:page}.cover p{margin:24px 0}</style></head><body>${body}</body></html>`);
@@ -41,13 +48,13 @@ try{
     for(const name of ['informe','plan-de-pruebas']){
         await send('Page.navigate',{url:pathToFileURL(path.join(root,'docs',name+'.html')).href});await new Promise(r=>setTimeout(r,400));
         const info=await send('Runtime.evaluate',{expression:'JSON.stringify({title:document.title,overflow:document.documentElement.scrollWidth>innerWidth,cases:document.querySelectorAll(".case").length,text:document.body.innerText.length})',returnByValue:true});
-        const summary=JSON.parse(info.result.value);if(summary.overflow||summary.text<5000)throw Error('Documento incompleto o desbordado');if(name==='plan-de-pruebas'&&summary.cases!==24)throw Error('Faltan casos');
-        const shot=await send('Page.captureScreenshot',{format:'png'});await writeFile(path.join(root,'docs/evidencias',name+'-vista.png'),Buffer.from(shot.data,'base64'));
+        const summary=JSON.parse(info.result.value);if(summary.overflow||summary.text<5000)throw Error('Documento incompleto o desbordado');if(name==='plan-de-pruebas'&&summary.cases!==plannedCaseCount)throw Error('Faltan casos');
+        const shot=await send('Page.captureScreenshot',{format:'png'});await writeFile(path.join(evidenceDir,name+'-vista.png'),Buffer.from(shot.data,'base64'));
         const pdf=await send('Page.printToPDF',{printBackground:true,preferCSSPageSize:true,displayHeaderFooter:true,headerTemplate:'<div style="font:8px Arial;width:100%;text-align:center;color:#665">Actualidad Huancayo · Universidad Continental</div>',footerTemplate:'<div style="font:8px Arial;width:100%;text-align:center;color:#665">Ramos Ore Dennis Jhordan · <span class="pageNumber"></span> / <span class="totalPages"></span></div>'});
         const buffer=Buffer.from(pdf.data,'base64');await writeFile(path.join(root,'docs',name+'.pdf'),buffer);
         const pages=(buffer.toString('latin1').match(/\/Type\s*\/Page\b/g)||[]).length;
         if(pages<1||!buffer.subarray(0,5).equals(Buffer.from('%PDF-')))throw Error('PDF inválido');
         logs.push(`${name}: ${buffer.length} bytes, ${pages} páginas PDF; HTML sin desbordamiento; ${summary.cases} casos; ${summary.text} caracteres de texto. Vista inicial capturada para revisión.`);
     }
-    await writeFile(path.join(root,'docs/evidencias/exportacion.txt'),logs.join('\n')+'\n');console.log(logs.join('\n'));await send('Browser.close');
+    await writeFile(path.join(evidenceDir,'exportacion.txt'),logs.join('\n')+'\n');console.log(logs.join('\n'));await send('Browser.close');
 }catch(e){console.error(e);process.exitCode=1;}finally{clearInterval(keepAlive);ws?.close();child.kill();}

@@ -1,0 +1,228 @@
+Navegador Edg/155.0.4283.45. Anchos CSS 360/390/768/1440. Zoom de layout equivalente: viewport 720 y salida 1440; además fuente raíz duplicada. Sin dispositivo físico ni lector de pantalla.
+PASS Diseño 360px inicio | {"width":360,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 360px inicio
+PASS Diseño 360px detalle | {"width":360,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 360px detalle
+PASS Diseño 360px login | {"width":360,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 360px login
+PASS Diseño 390px inicio | {"width":390,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 390px inicio
+PASS Teclado 390px inicio | Controles alcanzados: 15
+PASS Retroceso teclado 390px inicio
+PASS Diseño 390px detalle | {"width":390,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 390px detalle
+PASS Teclado 390px detalle | Controles alcanzados: 5
+PASS Retroceso teclado 390px detalle
+PASS Diseño 390px login | {"width":390,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 390px login
+PASS Teclado 390px login | Controles alcanzados: 8
+PASS Retroceso teclado 390px login
+PASS Diseño 768px inicio | {"width":768,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 768px inicio
+PASS Diseño 768px detalle | {"width":768,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 768px detalle
+PASS Diseño 768px login | {"width":768,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 768px login
+PASS Diseño 1440px inicio | {"width":1440,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 1440px inicio
+PASS Teclado 1440px inicio | Controles alcanzados: 15
+PASS Retroceso teclado 1440px inicio
+PASS Diseño 1440px detalle | {"width":1440,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 1440px detalle
+PASS Teclado 1440px detalle | Controles alcanzados: 5
+PASS Retroceso teclado 1440px detalle
+PASS Diseño 1440px login | {"width":1440,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 1440px login
+PASS Teclado 1440px login | Controles alcanzados: 8
+PASS Retroceso teclado 1440px login
+PASS Salto al contenido recibe foco
+PASS Salto activa main
+PASS Login navegador
+PASS Diseño 360px panel | {"width":360,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 360px panel
+PASS Diseño 360px noticias | {"width":360,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 360px noticias
+PASS Diseño 360px categorias | {"width":360,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 360px categorias
+PASS Diseño 360px crear-noticia | {"width":360,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 360px crear-noticia
+PASS Diseño 360px editar-noticia | {"width":360,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 360px editar-noticia
+PASS Diseño 360px crear-categoria | {"width":360,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 360px crear-categoria
+PASS Diseño 360px editar-categoria | {"width":360,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 360px editar-categoria
+PASS Diseño 360px eliminar-noticia | {"width":360,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 360px eliminar-noticia
+PASS Cancelar noticia 360
+PASS Regreso al listado 360
+PASS Diseño 360px eliminar-categoria | {"width":360,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 360px eliminar-categoria
+PASS Categoría asociada bloqueada 360
+PASS Diseño 390px panel | {"width":390,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 390px panel
+PASS Teclado 390px panel | Controles alcanzados: 10
+PASS Retroceso teclado 390px panel
+PASS Diseño 390px noticias | {"width":390,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 390px noticias
+PASS Teclado 390px noticias | Controles alcanzados: 31
+PASS Retroceso teclado 390px noticias
+PASS Diseño 390px categorias | {"width":390,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 390px categorias
+PASS Teclado 390px categorias | Controles alcanzados: 14
+PASS Retroceso teclado 390px categorias
+PASS Diseño 390px crear-noticia | {"width":390,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 390px crear-noticia
+PASS Teclado 390px crear-noticia | Controles alcanzados: 16
+PASS Retroceso teclado 390px crear-noticia
+PASS Diseño 390px editar-noticia | {"width":390,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 390px editar-noticia
+PASS Teclado 390px editar-noticia | Controles alcanzados: 16
+PASS Retroceso teclado 390px editar-noticia
+PASS Diseño 390px crear-categoria | {"width":390,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 390px crear-categoria
+PASS Teclado 390px crear-categoria | Controles alcanzados: 10
+PASS Retroceso teclado 390px crear-categoria
+PASS Diseño 390px editar-categoria | {"width":390,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 390px editar-categoria
+PASS Teclado 390px editar-categoria | Controles alcanzados: 10
+PASS Retroceso teclado 390px editar-categoria
+PASS Diseño 390px eliminar-noticia | {"width":390,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 390px eliminar-noticia
+PASS Teclado 390px eliminar-noticia | Controles alcanzados: 9
+PASS Retroceso teclado 390px eliminar-noticia
+PASS Cancelar noticia 390
+PASS Regreso al listado 390
+PASS Diseño 390px eliminar-categoria | {"width":390,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 390px eliminar-categoria
+PASS Teclado 390px eliminar-categoria | Controles alcanzados: 8
+PASS Retroceso teclado 390px eliminar-categoria
+PASS Categoría asociada bloqueada 390
+PASS Diseño 768px panel | {"width":768,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 768px panel
+PASS Diseño 768px noticias | {"width":768,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 768px noticias
+PASS Diseño 768px categorias | {"width":768,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 768px categorias
+PASS Diseño 768px crear-noticia | {"width":768,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 768px crear-noticia
+PASS Diseño 768px editar-noticia | {"width":768,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 768px editar-noticia
+PASS Diseño 768px crear-categoria | {"width":768,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 768px crear-categoria
+PASS Diseño 768px editar-categoria | {"width":768,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 768px editar-categoria
+PASS Diseño 768px eliminar-noticia | {"width":768,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 768px eliminar-noticia
+PASS Cancelar noticia 768
+PASS Regreso al listado 768
+PASS Diseño 768px eliminar-categoria | {"width":768,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 768px eliminar-categoria
+PASS Categoría asociada bloqueada 768
+PASS Diseño 1440px panel | {"width":1440,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 1440px panel
+PASS Teclado 1440px panel | Controles alcanzados: 10
+PASS Retroceso teclado 1440px panel
+PASS Diseño 1440px noticias | {"width":1440,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 1440px noticias
+PASS Teclado 1440px noticias | Controles alcanzados: 31
+PASS Retroceso teclado 1440px noticias
+PASS Diseño 1440px categorias | {"width":1440,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 1440px categorias
+PASS Teclado 1440px categorias | Controles alcanzados: 14
+PASS Retroceso teclado 1440px categorias
+PASS Diseño 1440px crear-noticia | {"width":1440,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 1440px crear-noticia
+PASS Teclado 1440px crear-noticia | Controles alcanzados: 16
+PASS Retroceso teclado 1440px crear-noticia
+PASS Diseño 1440px editar-noticia | {"width":1440,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 1440px editar-noticia
+PASS Teclado 1440px editar-noticia | Controles alcanzados: 16
+PASS Retroceso teclado 1440px editar-noticia
+PASS Diseño 1440px crear-categoria | {"width":1440,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 1440px crear-categoria
+PASS Teclado 1440px crear-categoria | Controles alcanzados: 10
+PASS Retroceso teclado 1440px crear-categoria
+PASS Diseño 1440px editar-categoria | {"width":1440,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 1440px editar-categoria
+PASS Teclado 1440px editar-categoria | Controles alcanzados: 10
+PASS Retroceso teclado 1440px editar-categoria
+PASS Diseño 1440px eliminar-noticia | {"width":1440,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 1440px eliminar-noticia
+PASS Teclado 1440px eliminar-noticia | Controles alcanzados: 9
+PASS Retroceso teclado 1440px eliminar-noticia
+PASS Cancelar noticia 1440
+PASS Regreso al listado 1440
+PASS Diseño 1440px eliminar-categoria | {"width":1440,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 1440px eliminar-categoria
+PASS Teclado 1440px eliminar-categoria | Controles alcanzados: 8
+PASS Retroceso teclado 1440px eliminar-categoria
+PASS Categoría asociada bloqueada 1440
+PASS Diseño 360px errores news | {"width":360,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 360px errores news
+PASS Resumen de errores enfocado 360 news
+PASS Errores con texto y enlaces 360 news
+PASS Enlace de error enfoca campo 360 news
+PASS Diseño 360px errores category | {"width":360,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 360px errores category
+PASS Resumen de errores enfocado 360 category
+PASS Errores con texto y enlaces 360 category
+PASS Enlace de error enfoca campo 360 category
+PASS Diseño 390px errores news | {"width":390,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 390px errores news
+PASS Resumen de errores enfocado 390 news
+PASS Errores con texto y enlaces 390 news
+PASS Enlace de error enfoca campo 390 news
+PASS Diseño 390px errores category | {"width":390,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 390px errores category
+PASS Resumen de errores enfocado 390 category
+PASS Errores con texto y enlaces 390 category
+PASS Enlace de error enfoca campo 390 category
+PASS Diseño 768px errores news | {"width":768,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 768px errores news
+PASS Resumen de errores enfocado 768 news
+PASS Errores con texto y enlaces 768 news
+PASS Enlace de error enfoca campo 768 news
+PASS Diseño 768px errores category | {"width":768,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 768px errores category
+PASS Resumen de errores enfocado 768 category
+PASS Errores con texto y enlaces 768 category
+PASS Enlace de error enfoca campo 768 category
+PASS Diseño 1440px errores news | {"width":1440,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 1440px errores news
+PASS Resumen de errores enfocado 1440 news
+PASS Errores con texto y enlaces 1440 news
+PASS Enlace de error enfoca campo 1440 news
+PASS Diseño 1440px errores category | {"width":1440,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica 1440px errores category
+PASS Resumen de errores enfocado 1440 category
+PASS Errores con texto y enlaces 1440 category
+PASS Enlace de error enfoca campo 1440 category
+PASS Texto y controles ampliados al 200%
+PASS Diseño texto200 formulario noticia | {"width":1440,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica texto200 formulario noticia
+PASS Diseño zoom200 equivalente inicio | {"width":720,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica zoom200 equivalente inicio
+PASS Diseño zoom200 equivalente detalle | {"width":720,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica zoom200 equivalente detalle
+PASS Diseño zoom200 equivalente panel | {"width":720,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica zoom200 equivalente panel
+PASS Diseño zoom200 equivalente noticias | {"width":720,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica zoom200 equivalente noticias
+PASS Diseño zoom200 equivalente categorias | {"width":720,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica zoom200 equivalente categorias
+PASS Diseño zoom200 equivalente crear-noticia | {"width":720,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica zoom200 equivalente crear-noticia
+PASS Diseño zoom200 equivalente editar-noticia | {"width":720,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica zoom200 equivalente editar-noticia
+PASS Diseño zoom200 equivalente crear-categoria | {"width":720,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica zoom200 equivalente crear-categoria
+PASS Diseño zoom200 equivalente editar-categoria | {"width":720,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica zoom200 equivalente editar-categoria
+PASS Diseño zoom200 equivalente eliminar-noticia | {"width":720,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica zoom200 equivalente eliminar-noticia
+PASS Diseño zoom200 equivalente eliminar-categoria | {"width":720,"overflow":false,"badBounds":[],"overlap":[]}
+PASS Etiquetas y semántica zoom200 equivalente eliminar-categoria
+PASS Contraste de muestras >=4.5:1 | [{"selector":"body","ratio":11.36},{"selector":"main p","ratio":8.8},{"selector":"label","ratio":12.66},{"selector":".field-help","ratio":7.04},{"selector":".error","ratio":8.76},{"selector":".error-summary a","ratio":8.34},{"selector":"button","ratio":7.86},{"selector":".secondary","ratio":12.66}]
+PASS Sin dependencia audiovisual
+226 comprobaciones aprobadas, 0 fallos.

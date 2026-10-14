@@ -1,7 +1,7 @@
 <?php
 require dirname(__DIR__) . '/app/bootstrap.php';
 $config=require ROOT.'/config/config.local.php';
-if (!preg_match('/dbname=actualidad_http_test(?:;|$)/',$config['dsn'])) exit("Use únicamente actualidad_http_test para estos flujos.\n");
+if (!preg_match('/dbname=(actualidad_http_test|actualidad_revision_[0-9]+_test)(?:;|$)/',$config['dsn'])) exit("Use únicamente la copia y base de QA para estos flujos.\n");
 $blog=new Blog(db($config)); $base=$argv[1]??'http://127.0.0.1:8080'; $cookie=ROOT.'/storage/http-cookies.txt'; $passed=0; $created=[];
 function request(string $route,array $data=[],bool $post=false): array { global $base,$cookie; $c=curl_init($base.'/index.php?'.$route); curl_setopt_array($c,[CURLOPT_RETURNTRANSFER=>true,CURLOPT_COOKIEJAR=>$cookie,CURLOPT_COOKIEFILE=>$cookie,CURLOPT_FOLLOWLOCATION=>false]); if($post){curl_setopt($c,CURLOPT_POST,true);curl_setopt($c,CURLOPT_POSTFIELDS,$data);} $body=curl_exec($c); if($body===false)throw new RuntimeException(curl_error($c)); $code=curl_getinfo($c,CURLINFO_HTTP_CODE);curl_close($c);return [$code,$body]; }
 function token(string $body): string { preg_match('/name="_token" value="([a-f0-9]+)"/',$body,$m);return $m[1]??''; }
@@ -24,6 +24,15 @@ try {
     $title='Prueba HTTP '.bin2hex(random_bytes(4));$d=['_token'=>$csrf,'title'=>$title,'summary'=>'Resumen ficticio de prueba HTTP.','content'=>'<script>alert("xss")</script> Texto ficticio y seguro.','category_id'=>1,'image_alt'=>'','status'=>'draft'];
     ok('H14 crear borrador',request('r=news-edit',$d,true)[0]===302);$id=(int)$blog->query('SELECT id FROM news WHERE title=?',[$title])->fetchColumn();$created[]=$id;
     ok('H15 borrador creado oculto',request('r=detail&id='.$id)[0]===404);
+    $bad=array_replace($d,['title'=>'    ','summary'=>'breve','content'=>'','category_id'=>'999999999','status'=>'invalid']);
+    $countBefore=(int)$blog->query('SELECT COUNT(*) FROM news')->fetchColumn();
+    [$code,$body]=request('r=news-edit',$bad,true);
+    ok('H35 crear inválido sin guardado', $code===200 && (int)$blog->query('SELECT COUNT(*) FROM news')->fetchColumn()===$countBefore && str_contains($body,'data-error-summary') && str_contains($body,'name="title"') && str_contains($body,'value="    "'));
+    ok('H36 categoría inexistente y estado preservados',str_contains($body,'La categoría seleccionada no existe.') && str_contains($body,'Estado no válido: invalid') && str_contains($body,'Selección anterior no válida: 999999999'));
+    $before=$blog->news($id);[$code,$body]=request('r=news-edit&id='.$id,$bad,true);
+    ok('H37 actualizar inválido conserva registro', $code===200 && $blog->news($id)===$before && str_contains($body,'Error: Debe tener entre 5 y 160'));
+    [$code,$body]=request('r=news-edit&id='.$id);
+    ok('H38 edición carga valores actuales', $code===200 && str_contains($body,e($title)) && str_contains($body,e($d['summary'])));
     $d['status']='published';ok('H16 publicar',request('r=news-edit&id='.$id,$d,true)[0]===302);
     [$code,$body]=request('r=detail&id='.$id);ok('H17 XSS escapado',$code===200 && str_contains($body,'&lt;script&gt;') && !str_contains($body,'<script>alert'));
     $tmp=ROOT.'/storage/http-image.png';file_put_contents($tmp,base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZkAAAAASUVORK5CYII='));
@@ -36,6 +45,7 @@ try {
     $d['image']=new CURLFile($tmp,'image/png','foto.php');ok('H20a extensión ejecutable rechazada',str_contains(request('r=news-edit&id='.$id,$d,true)[1],'auténtica'));
     file_put_contents($tmp,str_repeat('x',2097153));$d['image']=new CURLFile($tmp,'image/png','grande.png');ok('H20b tamaño excesivo rechazado',str_contains(request('r=news-edit&id='.$id,$d,true)[1],'máximo 2 MiB'));
     [$code,$body]=request('r=news-delete&id='.$id);ok('H21 GET confirma sin borrar',$code===200 && str_contains($body,'Confirmar eliminación') && $blog->news($id)!==false);
+    [$cancelCode,$cancelBody]=request('r=news');ok('H39 cancelar noticia conserva registro',str_contains($body,'Cancelar y volver al listado') && $cancelCode===200 && $blog->news($id)!==false);
     ok('H22 eliminar sin CSRF',request('r=news-delete&id='.$id,[],true)[0]===403);
     ok('H23 eliminar POST',request('r=news-delete&id='.$id,['_token'=>$csrf],true)[0]===302 && $blog->news($id)===false);
     [$code,$body]=request('r=category-delete&id=1',['_token'=>$csrf],true);ok('H24 categoría referenciada',$code===400 && str_contains($body,'Reasigne'));
@@ -43,6 +53,14 @@ try {
     $cat=(int)$blog->query('SELECT id FROM categories WHERE name=?',[$name])->fetchColumn();
     try {
         ok('H26 duplicado categoría',str_contains(request('r=category-edit',['_token'=>$csrf,'name'=>$name],true)[1],'Ya existe'));
+        $categoryBefore=$blog->query('SELECT * FROM categories WHERE id=?',[$cat])->fetch();
+        [$code,$body]=request('r=category-edit&id='.$cat,['_token'=>$csrf,'name'=>'    '],true);
+        ok('H40 categoría inválida al editar sin cambios', $code===200 && $blog->query('SELECT * FROM categories WHERE id=?',[$cat])->fetch()===$categoryBefore && str_contains($body,'data-error-summary') && str_contains($body,'value="    "'));
+        [$code,$body]=request('r=category-delete&id='.$cat);[$cancelCode]=request('r=categories');
+        ok('H41 cancelar categoría conserva registro',$code===200 && str_contains($body,'Cancelar y volver al listado') && $cancelCode===200 && $blog->query('SELECT id FROM categories WHERE id=?',[$cat])->fetch()!==false);
+        $categoryCount=(int)$blog->query('SELECT COUNT(*) FROM categories')->fetchColumn();
+        [$code,$body]=request('r=category-edit',['_token'=>$csrf,'name'=>str_repeat('n',61)],true);
+        ok('H42 categoría inválida al crear sin alta',$code===200 && (int)$blog->query('SELECT COUNT(*) FROM categories')->fetchColumn()===$categoryCount && str_contains($body,'Use entre 2 y 60'));
         ok('H27 editar categoría',request('r=category-edit&id='.$cat,['_token'=>$csrf,'name'=>$name.' editada'],true)[0]===302);
         ok('H28 eliminar categoría vacía',request('r=category-delete&id='.$cat,['_token'=>$csrf],true)[0]===302);
     }finally{$blog->query('DELETE FROM categories WHERE id=?',[$cat]);}

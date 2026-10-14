@@ -62,7 +62,7 @@ delivery/                       ZIP final, excluido del repositorio
 |---|---|---|
 | admins | id, email, password_hash, created_at | Email único; hash VARCHAR(255). |
 | categories | id, name | Nombre único, hasta 60 caracteres. |
-| news | id, title, summary, content, category_id, image, image_alt, status, published_at, created_at, updated_at | Categoría obligatoria; estado draft/published; FK RESTRICT. |
+| news | id, title, summary, content (MEDIUMTEXT), category_id, image, image_alt, status, published_at, created_at, updated_at | Categoría obligatoria; estado draft/published; FK RESTRICT. |
 
 Una categoría puede tener muchas noticias; cada noticia pertenece a una categoría. El administrador representa la identidad que accede al panel; no se añadió relación de autoría múltiple porque no está solicitada. La clave foránea de news.category_id impide eliminar una categoría con noticias. Para retirarla es necesario reasignar noticias o eliminarlas individualmente con confirmación. No hay borrado en cascada.
 
@@ -82,7 +82,7 @@ created_at registra creación; updated_at cambia al editar. Publicar asigna publ
 
 ## Validaciones y seguridad
 
-Título de 5 a 160 caracteres, resumen de 10 a 300 y contenido de 20 a 20.000, calculados con mb_strlen después de trim. Categoría debe ser entero positivo y existir. Estado solo admite draft/published. Nombre de categoría de 2 a 60 y único. Con imagen se requiere alt de 1 a 180; sin imagen el campo puede estar vacío. Los errores aparecen junto al campo y aria-describedby relaciona el control con su mensaje; el primer error recibe foco mediante JavaScript sencillo.
+Título de 5 a 160 caracteres, resumen de 10 a 300 y contenido de 20 a 20.000, calculados con mb_strlen después de normalizar espacios exteriores ASCII y Unicode. Categoría debe ser entero positivo y existir. Estado solo admite draft/published. Nombre de categoría de 2 a 60 y único. Con imagen se requiere alt de 1 a 180; sin imagen el campo puede estar vacío. Los errores aparecen junto al campo y aria-describedby relaciona el control con su mensaje; el resumen de errores recibe foco mediante JavaScript sencillo y sus enlaces llevan a cada campo.
 
 PDO utiliza consultas preparadas con emulación desactivada. Los nombres de tablas para eliminación provienen únicamente de una elección interna; nunca se incorporan nombres SQL enviados por usuario. La búsqueda escapa los comodines %, _ y el carácter de escape para tratarlos literalmente. Las contraseñas se comprueban con password_verify y el login regenera el ID de sesión y el token CSRF.
 
@@ -96,23 +96,38 @@ La configuración local y de pruebas se excluye del repositorio y ZIP. Solo publ
 
 La interfaz está en español, presenta mensajes concretos, permite limpiar filtros y exige confirmación en una pantalla antes de eliminar. Los borradores y publicados tienen texto identificador; no dependen solo de color. Formularios mantienen valores cuando hay errores y señalan cómo corregirlos.
 
-HTML incluye header, nav, main, article y footer, etiquetas asociadas, enlace de salto al contenido, foco visible y errores por campo. No hay animaciones. Las imágenes requieren alt y las de listados usan loading=lazy. Se comprobó salto con teclado, etiquetas de login y foco de errores; aún falta revisión completa con lector de pantalla y medición sistemática de contraste. No se afirma conformidad total con WCAG.
+HTML incluye header, nav, main, article y footer, etiquetas asociadas, enlace de salto al contenido, foco visible y errores por campo. No hay animaciones. Las imágenes requieren alt y las de listados usan loading=lazy. Se comprobó recorrido Tab/Shift+Tab en las 12 pantallas a 390/1440, salto y cancelación con Enter, resumen enfocado y enlaces que llevan a errores. Ocho muestras de contraste dieron entre 7,04:1 y 12,66:1; aún faltan lector de pantalla y medición de todos los estados. No se afirma conformidad total con WCAG.
 
-El estilo emplea naranja suave, beige, blanco y café; tipografía de sistema y encabezados serif locales. Las tarjetas pasan de tres a dos y una columna según ancho; los filtros se apilan en celular. Se revisaron capturas en 1440×1000 y 390×844 emulados, sin desbordamiento. Otros dispositivos, zoom y navegadores quedan pendientes.
+El estilo emplea naranja suave, beige, blanco y café; tipografía de sistema y encabezados serif locales. Las tarjetas pasan de tres a dos y una columna según ancho; los filtros y acciones se adaptan a celular. Se comprobaron inicio, detalle, login, panel, listados, formularios de alta/edición, confirmaciones y errores a 360/390/768/1440 píxeles. Los 68 layouts examinados no tuvieron desbordamiento ni controles superpuestos. La revisión corresponde a tamaños emulados en Edge; otros navegadores y dispositivos físicos quedan pendientes.
 
-La paginación ocurre en SQL, no cargando todos los registros en PHP. Los recursos son locales y no requieren framework ni compilación. En un escenario local con 1.000 noticias adicionales se midió mediana de 9,946 ms, P95 de 35,225 ms y máximo de 41,897 ms para 30 solicitudes HTTP secuenciales a página 100 tras un calentamiento. Es evidencia del escenario descrito y no de carga concurrente o red externa.
+La paginación ocurre en SQL, no cargando todos los registros en PHP. Los recursos son locales y no requieren framework ni compilación. En un escenario local con 1.000 noticias adicionales se midió mediana de 6,457 ms, P95 de 31,011 ms y máximo de 31,175 ms para 30 solicitudes HTTP secuenciales a página 100 tras un calentamiento. Es evidencia del escenario descrito y no de carga concurrente o red externa.
 
 ## Resumen del plan y resultados
 
-El plan diseña 24 casos de alto valor vinculados a 18 requisitos, con particiones, límites y transiciones. Priorización P1 para confidencialidad, pérdida de datos y operaciones críticas. Incluye criterios de entrada/salida/suspensión, cronograma relativo y estimación de 22 horas de trabajo de pruebas, no tiempo medido.
+El plan diseña 25 casos de alto valor vinculados a 18 requisitos, con particiones, límites y transiciones. Priorización P1 para confidencialidad, pérdida de datos y operaciones críticas. Incluye criterios de entrada/salida/suspensión, cronograma relativo y estimación de 22 horas de trabajo de pruebas, no tiempo medido.
 
-Se ejecutaron 29 comprobaciones unitarias, 14 de integración MariaDB, 44 HTTP, 11 en Edge y siete de instalación desde ZIP con Apache 2.4.58: 105 comprobaciones aprobadas sin fallos finales. Los 24 casos del plan tienen 23 Aprobado y uno No ejecutado, que no deben confundirse con las 105 aserciones. Se ejecutó además sintaxis PHP y el escenario de rendimiento. Los comandos y registros reales están en resultados-de-pruebas.md y evidencias.
+La revisión ejecutó 56 comprobaciones unitarias, 15 de integración MariaDB, 52 HTTP, 226 en Edge y siete de instalación desde ZIP con Apache 2.4.58: 356 comprobaciones aprobadas sin fallos finales. Los 25 casos del plan tienen 24 Aprobado y uno No ejecutado, que no deben confundirse con las 356 aserciones. Se ejecutó además sintaxis PHP y el escenario de rendimiento. Los comandos y registros reales están en resultados-de-pruebas.md y evidencias.
 
 La base de integración realiza rollback; la de HTTP contiene exclusivamente demostración y datos temporales. Se utilizó una instancia MariaDB nueva en storage/mysql, puerto 3307, sin modificar servicios ni bases de XAMPP. Los datos de desarrollo del receptor no se han probado ni eliminado.
 
+
+## Mejoras de la revisión del proyecto existente
+
+El CRUD se conserva y ahora muestra mensajes distintos de creación, actualización y eliminación. Los listados nombran la acción y su registro, la edición carga los valores actuales y la confirmación permite cancelar. Una categoría con noticias informa el impedimento antes del intento; la restricción de base de datos sigue protegiendo el POST.
+
+Servidor y formularios comparten los límites de noticias. Categorías tienen 2–60 caracteres, y se rechazan espacios ASCII/Unicode. Los valores originales se conservan al fallar; se normalizan únicamente al guardar. El resumen accesible enlaza cada error y el texto «Error:» evita depender solo del color. Las selecciones inválidas se mantienen identificadas para que puedan corregirse. La tabla ejemplos-validacion.md registra datos válidos, vacíos, inválidos, mínimos/máximos y vecinos de cada límite, con resultados de las pruebas reutilizadas.
+
+Se corrigió la capacidad de la columna content: MEDIUMTEXT admite los 20.000 caracteres Unicode permitidos, que podían superar TEXT. scripts/migrate-content.php aplica únicamente esa ampliación si hace falta, sin eliminar datos. Una integración guardó y recuperó íntegramente 20.000 caracteres de cuatro bytes. Huellas antes/después confirmaron los mismos registros de noticias/categorías/administradores y las mismas configuraciones. No se cambió ninguna credencial.
+
+La presentación utiliza bordes discretos, tipografía de sistema, naranja suave/beige/blanco/café y espacios uniformes; no se añadieron animaciones. Los controles examinados tienen al menos 44px de altura. La fuente raíz se duplicó realmente en un formulario y se comprobó layout equivalente al zoom de página 200% en 11 pantallas. No se accionó Ctrl+ nativo; esa revisión manual forma parte de CP21.
+
+Las medidas se relacionan con necesidades visuales (texto, contraste, alt y ampliación), motoras (teclado, foco, acciones grandes), cognitivas (instrucciones, conservación y mensajes) y auditivas (ninguna información depende de sonido; no hay audio/video informativo). El análisis detallado está en revision-usabilidad.md. No se afirma cumplimiento total de WCAG.
+
+README distingue instalación nueva de ejecución existente, evitando copiar el ejemplo sobre credenciales locales, y explica prueba desde teléfono en la misma Wi-Fi usando la IPv4 actual y public como document root. No se modifica firewall ni se publica en Internet. La prueba física queda a cargo del autor porque no se dispone del teléfono en esta sesión.
+
 ## Limitaciones y conclusiones
 
-La solución implementa los flujos esenciales y controles solicitados en un tamaño explicable. Las pruebas ejecutadas respaldan reglas y operaciones concretas; no garantizan ausencia de todos los defectos. CP21 (accesibilidad manual completa) permanece No ejecutado. Todos los P1 están aprobados, incluido CP24 con instalación en una copia extraída desde ZIP, importación SQL y administrador creado por CLI. La aceptación del pendiente P2 corresponde al autor. Quedan lector de pantalla, contraste sistemático, otros navegadores/dispositivos, JPEG/WebP visuales y carga concurrente fuera de la ejecución realizada.
+La solución implementa los flujos esenciales y controles solicitados en un tamaño explicable. Las pruebas ejecutadas respaldan reglas y operaciones concretas; no garantizan ausencia de todos los defectos. CP21 (accesibilidad manual completa) permanece No ejecutado. Todos los P1 están aprobados, incluido CP24 con instalación en una copia extraída desde ZIP, importación SQL y administrador creado por CLI. La aceptación del pendiente P2 corresponde al autor. Quedan lector de pantalla, zoom nativo manual, contraste de todos los estados, otros navegadores/dispositivos físicos, JPEG/WebP visuales y carga concurrente fuera de la ejecución realizada.
 
 Antes de presentar, el autor debe instalar desde ZIP, revisar esos casos, contrastar semanas 3 y 4 y comprobar que puede explicar el flujo y las decisiones. El valor académico consiste tanto en el blog como en distinguir requisitos, pruebas planificadas, comprobaciones ejecutadas y límites de la evidencia.
 
@@ -128,6 +143,6 @@ Fuentes técnicas oficiales consultadas para documentar mecanismos; no se atribu
 
 A: plan-de-pruebas.md y matriz-trazabilidad.md. B: resultados-de-pruebas.md y evidencias textuales. C: README y SQL. D: guion-de-exposicion.md y participantes.md.
 
-Capturas reales: inicio-escritorio.png, inicio-celular.png, login-celular.png, formulario-celular.png, errores-celular.png y panel-escritorio.png en evidencias. Fueron obtenidas con Edge, no son maquetas generadas.
+Las capturas originales permanecen en evidencias. Las 12 capturas de la revisión están en evidencias/revision-2: inicio-1440, detalle-360, login-390, panel-768, categorias-390, crear-noticia-360, ambas confirmaciones, errores de noticia/categoría a 360, texto-200-formulario y zoom-200-formulario. Fueron obtenidas con Edge, no son maquetas generadas.
 
-**Espacio pendiente A:** captura adicional de la importación mediante interfaz phpMyAdmin; no obtenida (la importación SQL real se verificó mediante PDO). **Espacio pendiente B:** evidencia del recorrido completo con lector de pantalla; no obtenida. Adjuntar solo después de ejecutar y registrar resultado real. La comprobación Apache de denegación de scripts en uploads y credenciales fuera de la raíz pública ya tiene evidencia textual en install.txt.
+**Espacio pendiente A:** captura adicional de la importación mediante interfaz phpMyAdmin; no obtenida (la importación SQL real se verificó mediante PDO). **Espacio pendiente B:** evidencia del recorrido completo con lector de pantalla; no obtenida. Adjuntar solo después de ejecutar y registrar resultado real. La comprobación Apache de denegación de scripts en uploads y credenciales fuera de la raíz pública ya tiene evidencia textual en evidencias/revision-2/install.txt.

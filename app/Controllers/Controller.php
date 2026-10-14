@@ -42,17 +42,18 @@ final class Controller {
                 try { $this->blog->query("DELETE FROM $table WHERE id=?", [$id]); }
                 catch (PDOException $ex) { if ($ex->getCode() !== '23000') throw $ex; $this->message('No puede eliminar una categoría con noticias. Reasigne sus noticias primero.'); return; }
                 // Las imágenes antiguas se conservan; evita borrar archivos aún referenciados.
-                $_SESSION['flash'] = 'Registro eliminado.'; redirect($table === 'news' ? 'news' : 'categories');
+                $_SESSION['flash'] = $table === 'news' ? 'Noticia eliminada correctamente.' : 'Categoría eliminada correctamente.'; redirect($table === 'news' ? 'news' : 'categories');
             }
-            $this->view('delete', ['item' => $item, 'route' => $r, 'id' => $id]); return;
+            $related = $table === 'categories' ? (int)$this->blog->query('SELECT COUNT(*) FROM news WHERE category_id=?', [$id])->fetchColumn() : 0;
+            $this->view('delete', ['item' => $item, 'route' => $r, 'id' => $id, 'related' => $related]); return;
         }
     }
     private function login(string $method): void {
         $errors = []; $email = '';
         if ($method === 'POST') {
-            $email = trim((string)($_POST['email'] ?? ''));
+            $email = normalizeText(inputText($_POST, 'email'));
             $user = $this->blog->query('SELECT * FROM admins WHERE email=?', [$email])->fetch();
-            if ($user && password_verify((string)($_POST['password'] ?? ''), $user['password_hash'])) {
+            if ($user && password_verify(inputText($_POST, 'password'), $user['password_hash'])) {
                 session_regenerate_id(true); $_SESSION['admin'] = $user['id']; $_SESSION['csrf'] = bin2hex(random_bytes(32)); redirect('dashboard');
             }
             $errors['password'] = 'Correo o contraseña incorrectos.';
@@ -63,13 +64,14 @@ final class Controller {
         $data = $id ? $this->blog->query('SELECT * FROM categories WHERE id=?', [$id])->fetch() : ['name' => '']; $errors = [];
         if (!$data) { $this->message('Categoría no encontrada.', 404); return; }
         if ($method === 'POST') {
-            $data['name'] = trim((string)($_POST['name'] ?? ''));
-            if (mb_strlen($data['name']) < 2 || mb_strlen($data['name']) > 60) $errors['name'] = 'Use entre 2 y 60 caracteres.';
+            $data['name'] = inputText($_POST, 'name');
+            $errors = validateCategory($data);
             if (!$errors) {
                 try {
-                    if ($id) $this->blog->query('UPDATE categories SET name=? WHERE id=?', [$data['name'], $id]);
-                    else $this->blog->query('INSERT INTO categories(name) VALUES(?)', [$data['name']]);
-                    $_SESSION['flash'] = 'Categoría guardada.'; redirect('categories');
+                    $name = normalizeText($data['name']);
+                    if ($id) $this->blog->query('UPDATE categories SET name=? WHERE id=?', [$name, $id]);
+                    else $this->blog->query('INSERT INTO categories(name) VALUES(?)', [$name]);
+                    $_SESSION['flash'] = $id ? 'Categoría actualizada correctamente.' : 'Categoría creada correctamente.'; redirect('categories');
                 } catch (PDOException $ex) { if ($ex->getCode() !== '23000') throw $ex; $errors['name'] = 'Ya existe una categoría con ese nombre.'; }
             }
         }
@@ -79,11 +81,11 @@ final class Controller {
         $data = $id ? $this->blog->news($id) : ['title' => '', 'summary' => '', 'content' => '', 'category_id' => '', 'image' => null, 'image_alt' => '', 'status' => 'draft']; $errors = [];
         if (!$data) { $this->message('Noticia no encontrada.', 404); return; }
         if ($method === 'POST') {
-            foreach (['title', 'summary', 'content', 'category_id', 'image_alt', 'status'] as $field) $data[$field] = trim((string)($_POST[$field] ?? ''));
+            foreach (['title', 'summary', 'content', 'category_id', 'image_alt', 'status'] as $field) $data[$field] = inputText($_POST, $field);
             $file = $_FILES['image'] ?? ['error' => UPLOAD_ERR_NO_FILE];
             $hasNew = $file['error'] !== UPLOAD_ERR_NO_FILE;
             $errors = validateNews($data, (bool)$data['image'] || $hasNew);
-            if (!$this->blog->query('SELECT id FROM categories WHERE id=?', [$data['category_id']])->fetch()) $errors['category_id'] = 'La categoría seleccionada no existe.';
+            if (!isset($errors['category_id']) && !$this->blog->query('SELECT id FROM categories WHERE id=?', [$data['category_id']])->fetch()) $errors['category_id'] = 'La categoría seleccionada no existe.';
             if ($problem = validateImage($file)) $errors['image'] = $problem;
             if (!$errors) {
                 $newPath = null;
@@ -93,9 +95,11 @@ final class Controller {
                     if (!move_uploaded_file($file['tmp_name'], $newPath)) { $errors['image'] = 'No se pudo guardar la imagen. Revise los permisos.'; }
                 }
                 if (!$errors) {
-                    try { $this->blog->saveNews($data, $id ?: null); }
+                    $normalized = $data;
+                    foreach (['title', 'summary', 'content', 'image_alt'] as $field) $normalized[$field] = normalizeText($data[$field]);
+                    try { $this->blog->saveNews($normalized, $id ?: null); }
                     catch (Throwable $ex) { if ($newPath) unlink($newPath); throw $ex; }
-                    $_SESSION['flash'] = 'Noticia guardada.'; redirect('news');
+                    $_SESSION['flash'] = $id ? 'Noticia actualizada correctamente.' : 'Noticia creada correctamente.'; redirect('news');
                 }
             }
         }

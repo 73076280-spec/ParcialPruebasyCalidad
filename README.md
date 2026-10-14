@@ -5,6 +5,37 @@ Autor: **Ramos Ore Dennis Jhordan**. Noticias originales ficticias para demostra
 
 Blog PHP 8.2 sin framework: área pública, búsqueda por título, categorías, paginación de seis noticias, detalle; panel protegido con noticias, categorías y resumen. Recursos locales, sin compilación.
 
+## Proyecto existente: no repetir la instalación
+
+Si ya tiene el blog instalado, conserve `config/config.local.php`, su administrador y los datos. **No vuelva a copiar el ejemplo sobre la configuración existente ni a importar demo.sql.** El ejemplo corresponde a una instalación nueva en 3306; la instancia local preparada en este equipo usa 3307. Verifique el DSN que ya tiene.
+
+La revisión mejora los formularios, estilo y pruebas sin reconstruir el blog. Para una base anterior con `content TEXT`, ejecute una sola vez `php scripts/migrate-content.php`: amplía a MEDIUMTEXT sin borrar registros y permite guardar 20.000 caracteres utf8mb4 incluso si ocupan cuatro bytes cada uno. Si ya está actualizado, no cambia nada. Los datos y las configuraciones de este proyecto se compararon antes/después y permanecen iguales.
+
+Para mantener la base local de este espacio encendida (solo si no hay un proceso escuchando en 3307), abra una consola dedicada:
+
+```powershell
+cd D:\Parcial
+& C:\xampp\mysql\bin\mysqld.exe --defaults-file=D:\Parcial\storage\mysql\my.ini --datadir=D:\Parcial\storage\mysql --port=3307 --bind-address=127.0.0.1 --console
+```
+
+Este comando usa la instancia ya creada en storage/mysql, excluida del ZIP; no inicializa ni reemplaza datos. Para instalar desde el ZIP en otro equipo, use la sección de instalación nueva con MySQL de XAMPP. Mantenga abierta la consola de la base y, en otra, el servidor PHP. El blog necesita ambos procesos.
+
+## Abrir desde un teléfono en la misma Wi-Fi
+
+1. Conecte teléfono y computadora a la misma Wi-Fi. La base de datos sigue atendiendo solo a PHP en la computadora: no necesita abrir MySQL al teléfono.
+2. En PowerShell ejecute `ipconfig` y busque **Dirección IPv4** del adaptador Wi-Fi. En esta revisión era **172.16.150.19**; puede cambiar al reconectar. No use localhost ni 127.0.0.1 desde el teléfono, porque apuntan al propio teléfono.
+3. Detenga solo el servidor PHP actual con Ctrl+C en su consola (conserve la consola MySQL). Ejecute el servidor con la IP local, manteniendo el document root en public:
+
+```powershell
+cd D:\Parcial
+php -d session.save_path=D:\Parcial\storage -d upload_tmp_dir=D:\Parcial\storage -d upload_max_filesize=3M -d post_max_size=4M -S 172.16.150.19:8080 -t public
+```
+
+4. Abra en la computadora y luego en el teléfono `http://172.16.150.19:8080/index.php`. Panel: `http://172.16.150.19:8080/index.php?r=login`. Sustituya la IP si ipconfig muestra otra. Use su cuenta existente; no cree ni cambie credenciales para esta prueba.
+5. Si no abre, confirme primero la URL en la computadora, la IP actual, las dos consolas activas y que no hay una VPN interfiriendo. Algunas redes universitarias/de invitados aíslan dispositivos y bloquean esta conexión. Si Windows pide permiso, decida manualmente si permite PHP en una red privada de confianza; no se modifica automáticamente el firewall. No desactive el firewall, no configure redirecciones de puertos en el router y no exponga este servidor a Internet.
+
+La revisión automatizada se hizo en Edge con tamaños de navegador móviles y ampliación de texto/layout; **no es una prueba en un teléfono físico**. Consulte docs/resultados-de-pruebas.md para el alcance real.
+
 ## Instalación en Windows/XAMPP
 
 1. Instale XAMPP con PHP 8.2 y MariaDB/MySQL. Inicie **MySQL** en su panel. El servidor integrado de PHP permite trabajar directamente en `D:\Parcial`, sin copiar a htdocs. No exponga el servidor integrado a Internet.
@@ -54,6 +85,26 @@ Copie el proyecto completo a `C:\xampp\htdocs\actualidad-huancayo`, configure `b
 
 ## Pruebas reproducibles
 
+Para conservar una instalación existente, prepare una **copia aislada** con `php tests/prepare-qa.php`. Requiere config.test.php apuntando al servidor de pruebas y crea una base nueva con nombre actualidad_revision_<marca>_test, sin borrar otras bases. Guarda la ruta en storage/qa-path.txt y genera configuración únicamente dentro de la copia. No modifica config.local.php ni config.test.php del proyecto.
+
+```powershell
+php tests\unit.php --examples
+php tests\prepare-qa.php
+$qaPath = (Get-Content storage\qa-path.txt -Raw).Trim()
+php -d session.save_path="$qaPath\storage" -d upload_tmp_dir="$qaPath\storage" -d upload_max_filesize=3M -d post_max_size=4M -S 127.0.0.1:8082 -t "$qaPath\public"
+```
+
+Con esa consola abierta, desde otra en D:\Parcial:
+
+```powershell
+$qaPath = (Get-Content storage\qa-path.txt -Raw).Trim()
+php (Join-Path $qaPath 'tests\integration.php')
+php (Join-Path $qaPath 'tests\http.php') http://127.0.0.1:8082
+node tests\browser.mjs http://127.0.0.1:8082
+```
+
+La prueba de navegador actual recorre 12 pantallas en 360/390/768/1440, rutas de error, controles por teclado, contrastes seleccionados y ampliación. Solo envía formularios inválidos. Los flujos HTTP crean y limpian exclusivamente sus fixtures en la copia. La tabla de límites se genera con `--examples` en docs/ejemplos-validacion.md, reutilizando la prueba unitaria. Evidencias actuales: docs/evidencias/revision-2. No ejecute HTTP ni rendimiento en la aplicación de desarrollo.
+
 ```powershell
 & C:\xampp\php\php.exe tests\unit.php
 rg --files -g '*.php' -g '!storage/**' | ForEach-Object { & C:\xampp\php\php.exe -l $_ }
@@ -88,6 +139,6 @@ HTTP requiere curl; imágenes requieren fileinfo; textos requieren mbstring. El 
 
 ## Entrega
 
-Documentación en `docs/`: informe, plan con 24 casos, matriz, resultados, participantes y guion. Informe y plan también en PDF y HTML imprimible. Puede actualizar esos formatos con `node scripts/export-docs.mjs` (requiere Edge en Windows), o abrir los HTML y usar Imprimir → Guardar como PDF. Para DOCX, abra el HTML con Word o LibreOffice y guarde como DOCX; ese formato no se generó en esta entrega. La exportación automática revisa texto, ausencia de desbordamiento, cantidad de casos y estructura PDF; las vistas iniciales se revisaron visualmente, sin revisión visual página por página de los PDF.
+Documentación en `docs/`: informe, plan con 25 casos, matriz, resultados, tabla de ejemplos, participantes y guion. Informe y plan también en PDF y HTML imprimible. Puede actualizar esos formatos con `node scripts/export-docs.mjs` (requiere Edge en Windows), o abrir los HTML y usar Imprimir → Guardar como PDF. Para DOCX, abra el HTML con Word o LibreOffice y guarde como DOCX; ese formato no se generó en esta entrega. La exportación automática revisa texto, ausencia de desbordamiento, cantidad de casos y estructura PDF; las vistas iniciales se revisaron visualmente, sin revisión visual página por página de los PDF.
 
 Evidencias reales en `docs/evidencias`. ZIP en `delivery/actualidad-huancayo.zip`. Para regenerarlo: `powershell -NoProfile -File scripts/package.ps1`; utiliza una lista permitida y comprueba exclusiones. Configuraciones locales, bases temporales, perfiles del navegador y sesiones están excluidos. Consulte los resultados antes de afirmar que se ha verificado todo. Los materiales de semanas 3 y 4 no fueron proporcionados: deben contrastarse antes de presentar.

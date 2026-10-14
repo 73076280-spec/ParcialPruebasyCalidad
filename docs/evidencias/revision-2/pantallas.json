@@ -1,0 +1,682 @@
+[
+  {
+    "label": "360px inicio",
+    "width": 360,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "360px detalle",
+    "width": 360,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "360px login",
+    "width": 360,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "390px inicio",
+    "width": 390,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "390px detalle",
+    "width": 390,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "390px login",
+    "width": 390,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "768px inicio",
+    "width": 768,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "768px detalle",
+    "width": 768,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "768px login",
+    "width": 768,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "1440px inicio",
+    "width": 1440,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "1440px detalle",
+    "width": 1440,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "1440px login",
+    "width": 1440,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "360px panel",
+    "width": 360,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "360px noticias",
+    "width": 360,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "360px categorias",
+    "width": 360,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "360px crear-noticia",
+    "width": 360,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "360px editar-noticia",
+    "width": 360,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "360px crear-categoria",
+    "width": 360,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "360px editar-categoria",
+    "width": 360,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "360px eliminar-noticia",
+    "width": 360,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "360px eliminar-categoria",
+    "width": 360,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "390px panel",
+    "width": 390,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "390px noticias",
+    "width": 390,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "390px categorias",
+    "width": 390,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "390px crear-noticia",
+    "width": 390,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "390px editar-noticia",
+    "width": 390,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "390px crear-categoria",
+    "width": 390,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "390px editar-categoria",
+    "width": 390,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "390px eliminar-noticia",
+    "width": 390,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "390px eliminar-categoria",
+    "width": 390,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "768px panel",
+    "width": 768,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "768px noticias",
+    "width": 768,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "768px categorias",
+    "width": 768,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "768px crear-noticia",
+    "width": 768,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "768px editar-noticia",
+    "width": 768,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "768px crear-categoria",
+    "width": 768,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "768px editar-categoria",
+    "width": 768,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "768px eliminar-noticia",
+    "width": 768,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "768px eliminar-categoria",
+    "width": 768,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "1440px panel",
+    "width": 1440,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "1440px noticias",
+    "width": 1440,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "1440px categorias",
+    "width": 1440,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "1440px crear-noticia",
+    "width": 1440,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "1440px editar-noticia",
+    "width": 1440,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "1440px crear-categoria",
+    "width": 1440,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "1440px editar-categoria",
+    "width": 1440,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "1440px eliminar-noticia",
+    "width": 1440,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "1440px eliminar-categoria",
+    "width": 1440,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "360px errores news",
+    "width": 360,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "360px errores category",
+    "width": 360,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "390px errores news",
+    "width": 390,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "390px errores category",
+    "width": 390,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "768px errores news",
+    "width": 768,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "768px errores category",
+    "width": 768,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "1440px errores news",
+    "width": 1440,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "1440px errores category",
+    "width": 1440,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "texto200 formulario noticia",
+    "width": 1440,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "zoom200 equivalente inicio",
+    "width": 720,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "zoom200 equivalente detalle",
+    "width": 720,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "zoom200 equivalente panel",
+    "width": 720,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "zoom200 equivalente noticias",
+    "width": 720,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "zoom200 equivalente categorias",
+    "width": 720,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "zoom200 equivalente crear-noticia",
+    "width": 720,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "zoom200 equivalente editar-noticia",
+    "width": 720,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "zoom200 equivalente crear-categoria",
+    "width": 720,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "zoom200 equivalente editar-categoria",
+    "width": 720,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "zoom200 equivalente eliminar-noticia",
+    "width": 720,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  },
+  {
+    "label": "zoom200 equivalente eliminar-categoria",
+    "width": 720,
+    "overflow": false,
+    "badBounds": [],
+    "overlap": [],
+    "labels": true,
+    "descriptions": true,
+    "h1": 1
+  }
+]

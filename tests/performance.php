@@ -1,7 +1,7 @@
 <?php
 require dirname(__DIR__).'/app/bootstrap.php';
 $config=require ROOT.'/config/config.local.php';
-if (!str_contains($config['dsn'],'dbname=actualidad_http_test;')) exit("Solo actualidad_http_test.\n");
+if (!preg_match('/dbname=(actualidad_http_test|actualidad_revision_[0-9]+_test)(?:;|$)/',$config['dsn'])) exit("Solo una base de QA.\n");
 $blog=new Blog(db($config));$base=$argv[1]??'http://127.0.0.1:8080';
 $blog->query('INSERT INTO categories(name) VALUES(?)',['Carga ficticia '.bin2hex(random_bytes(4))]);$cat=(int)$blog->pdo->lastInsertId();
 try{

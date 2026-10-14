@@ -1,5 +1,73 @@
 # Resultados reales de pruebas
 
+## Revisión 2: CRUD, validación, usabilidad y móvil
+
+Autor: Ramos Ore Dennis Jhordan. Revisión: 13 de octubre de 2026 (America/Lima). Directorio D:\Parcial. Se revisó el proyecto existente y su Git sin publicar ni subir cambios. No había AGENTS.md en el proyecto.
+
+La base y credenciales de desarrollo se conservaron. tests/prepare-qa.php creó una copia en storage/qa-20261013200403 y la base nueva actualidad_revision_20261013200403_test. El servidor de pruebas sirvió solo su public en 127.0.0.1:8082. No se reemplazó config.local.php/config.test.php del autor. La ampliación de content a MEDIUMTEXT conservó todos los registros.
+
+| Comprobación actual | Resultado real | Evidencia en docs/evidencias/revision-2 |
+|---|---|---|
+| Sintaxis PHP | Sin errores en todos los PHP del proyecto examinados | syntax.txt |
+| Unitarias y tabla de ejemplos | 56 aprobaciones, 0 fallos | unit.txt y docs/ejemplos-validacion.md |
+| Integración MariaDB | 15 aprobaciones, 0 fallos, ROLLBACK; máximo Unicode íntegro | integration.txt |
+| HTTP | 52 aprobaciones, 0 fallos; crear/editar inválidos, conservar, cancelar, CRUD/seguridad | http.txt |
+| Edge/CDP | 226 comprobaciones aprobadas, 0 fallos | navegador.txt, pantallas.json, contraste.json y 12 PNG |
+| Instalación ZIP/Apache | Siete aprobaciones, 0 fallos en la copia del ZIP de esta revisión | install.txt |
+| Conservación del proyecto | Huellas de datos y configuraciones idénticas antes/después | datos-antes.json y datos-despues.json |
+| Rendimiento local | Mediana 6,457 ms, P95 31,011 ms, máximo 31,175 ms; P95 <500 ms alcanzado | performance.txt |
+
+356 aserciones actuales, aparte de sintaxis/rendimiento. Plan: 25 casos; 24 Aprobado y CP21 No ejecutado. Avance 96%, aprobación de ejecutados 100%. Cobertura de requisitos diseñada y con algún caso ejecutado 100%; no significa evaluación exhaustiva de RNF05. No se midió cobertura de código.
+
+### Comandos de la revisión
+
+```powershell
+php tests\preserve-data.php
+php scripts\migrate-content.php
+php tests\unit.php --examples
+php tests\prepare-qa.php
+$qaPath = (Get-Content storage\qa-path.txt -Raw).Trim()
+php (Join-Path $qaPath 'scripts\migrate-content.php')
+php -d session.save_path="$qaPath\storage" -d upload_tmp_dir="$qaPath\storage" -d upload_max_filesize=3M -d post_max_size=4M -S 127.0.0.1:8082 -t "$qaPath\public"
+php (Join-Path $qaPath 'tests\integration.php')
+php (Join-Path $qaPath 'tests\http.php') http://127.0.0.1:8082
+node tests\browser.mjs http://127.0.0.1:8082
+php (Join-Path $qaPath 'tests\performance.php') http://127.0.0.1:8082
+php tests\preserve-data.php
+rg --files -g '*.php' -g '!storage/**' | ForEach-Object { php -l $_ }
+node scripts\export-docs.mjs
+powershell -NoProfile -File scripts\package.ps1
+powershell -NoProfile -File tests\install.ps1 -ReviewNumber 5
+```
+
+Estos comandos se ejecutan en consolas separadas para mantener el servidor mientras se prueba. No se cambian credenciales ni se importan fixtures en desarrollo. Los scripts HTTP/performance limpian solo sus filas creadas en la base QA; integración revierte su transacción.
+
+### Cobertura del navegador y revisión visual
+
+Se probaron 12 pantallas en cuatro anchos CSS: 360, 390, 768 y 1440 (48 variantes). Se añadieron ocho estados de error, un formulario con fuente raíz al 200% y 11 variantes con viewport/layout equivalente al zoom 200%: 68 layouts en total. Todos pasaron ausencia de desbordamiento, límites de controles y superposición, etiquetas/descripciones y un único h1 principal.
+
+En 390/1440 se recorrieron todas las rutas con Tab/Shift+Tab y se comprobaron foco visible y orden DOM. Enter activó salto, Cancelar y enlaces de errores. Los formularios inválidos conservaron valores y el resumen recibió foco. Las capturas se revisaron visualmente: se conserva paleta formal y no se observan campos/botones superpuestos. Son tamaños de navegador emulados, no un teléfono físico.
+
+Fuente raíz duplicada: el tamaño calculado del control se duplicó. Layout equivalente al zoom: 720 píxeles CSS con escala de salida 2 para 1440; no se pulsó Ctrl+ nativo del navegador. No se usa pinch/scroll para aparentar una prueba de reflow. Las ocho muestras de contraste dieron ratios de 7,04:1 a 12,66:1, según estilos efectivos. No constituyen auditoría completa de foco, hover y todas las imágenes.
+
+### Conservación y cambios de datos
+
+Antes/después: nueve noticias, tres categorías y un administrador, con huellas completas iguales. SHA256 de config.local.php y config.test.php también coincide. No se cambiaron credenciales, títulos, textos, fechas ni categorías del autor. Solo cambió la capacidad del tipo content de TEXT a MEDIUMTEXT; I15 verificó 20.000 caracteres de cuatro bytes sin truncamiento. Las pruebas se hicieron en una base nueva, separada.
+
+### Rendimiento actual
+
+Se reutilizó el escenario: 1.000 noticias ficticias adicionales en una categoría propia, página 100, un calentamiento y 30 solicitudes secuenciales, un usuario. P95 por rango más próximo. Objetivo local <500 ms para respuesta sencilla sin red externa; resultado 31,011 ms. No equivale a carga concurrente o red móvil. Los resultados iniciales de la primera versión se conservan abajo como históricos.
+
+### Pendientes reales
+
+CP21 conserva estado No ejecutado para la revisión manual completa: lector de pantalla, Ctrl+ nativo 200%, zoom intermedio y contraste de todos los estados. También quedan teléfono físico/Wi-Fi, otros navegadores, usuarios con necesidades específicas, imágenes JPEG/WebP visuales, carga concurrente y revisión de PDFs página por página. No hay audio/video informativo, por lo que subtítulos/transcripciones no aplican a esta versión. Deben contrastarse los materiales de semanas 3 y 4.
+
+HTML/PDF y ZIP se regeneran con los scripts existentes; registro de exportación y vistas iniciales en revision-2. La lista de archivos se revisa en manifest.txt, excluyendo configuraciones locales, bases, cookies y perfiles. La instalación desde el ZIP usa Apache propio en 8081, config temporal y base exclusiva actualidad_install5_test, sin modificar XAMPP.
+
+## Registro histórico de la primera versión
+
+El siguiente registro corresponde al desarrollo inicial. Sus cantidades y pendientes describen esa versión; las cifras actuales son las de la revisión anterior. Se conservan los registros originales, no se presentan como nuevas ejecuciones.
+
 Autor: Ramos Ore Dennis Jhordan. Ejecución: 13 de octubre de 2026 (America/Lima). No es fecha de entrega. Directorio de trabajo: D:\Parcial.
 
 ## Entorno comprobado
@@ -35,7 +103,7 @@ rg --files -g '*.php' -g '!storage/**' | ForEach-Object { php -l $_ }
 
 El Copy-Item se realizó sobre un proyecto nuevo sin configuración previa, exclusivamente para QA. No debe repetirse sobre una instalación de desarrollo en uso.
 
-## Resultados finales
+## Resultados iniciales (históricos)
 
 | Comprobación | Resultado real | Evidencia |
 |---|---|---|

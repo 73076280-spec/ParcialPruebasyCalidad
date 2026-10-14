@@ -1,0 +1,34 @@
+[
+  {
+    "selector": "body",
+    "ratio": 11.355747928664702
+  },
+  {
+    "selector": "main p",
+    "ratio": 8.799837999757097
+  },
+  {
+    "selector": "label",
+    "ratio": 12.663969707278577
+  },
+  {
+    "selector": ".field-help",
+    "ratio": 7.039094708016054
+  },
+  {
+    "selector": ".error",
+    "ratio": 8.75791861051211
+  },
+  {
+    "selector": ".error-summary a",
+    "ratio": 8.344930559308395
+  },
+  {
+    "selector": "button",
+    "ratio": 7.855125607626741
+  },
+  {
+    "selector": ".secondary",
+    "ratio": 12.663969707278577
+  }
+]
